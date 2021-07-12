@@ -14,8 +14,11 @@
     <button type="submit" id="gr">Green</button>
     <button type="submit" onclick="cl()">Clear all</button>
     <p id="t">By default color is set to black</p>
+    <p id="bu"></p>
     <script>
         var sx, sy, ex, ey;
+        var con = 0;
+        var sh = [];
         var c = "black";
         const y = document.getElementById("myCanvas");
         var ctx = y.getContext("2d");
@@ -31,6 +34,7 @@
             document.getElementById("t").innerHTML =
                 "By default color is set to black";
             c = "black";
+            sh = [];
         }
 
         function Blc() {
@@ -50,15 +54,28 @@
                 "Color is set to green";
             c = "green";
         }
-        document.addEventListener('mousedown', (event) => {
+        y.addEventListener('mousedown', (event) => {
             sx = event.clientX;
             sy = event.clientY;
         });
-        document.addEventListener('mouseup', (event) => {
+        y.addEventListener('mouseup', (event) => {
             ctx.fillStyle = c;
             ex = event.clientX;
             ey = event.clientY;
+            if (ex == sx || ey == sy)
+                exit();
+            sh[con] = [sx, ex, sy, ey];
+            con += 1;
             ctx.fillRect(sx, sy, ex - sx, ey - sy);
+        });
+        y.addEventListener('dblclick', (event) => {
+            ax = event.clientX;
+            ay = event.clientY;
+            console.log(ax, ay);
+            for (let i = 0; i < sh.length; i++)
+                if (sh[i][0] <= ax && sh[i][1] >= ax && sh[i][2] <= ay && sh[i][3] >= ay)
+                    ctx.clearRect(sh[i][0], sh[i][2], sh[i][1], sh[i][3]);
+
         });
     </script>
 </body>

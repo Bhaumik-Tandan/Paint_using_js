@@ -9,56 +9,26 @@
     <canvas id="myCanvas" width="600" height="500" style="border:1px solid #000000;">
     </canvas>
     <br>
-    <button type="submit" id="bl">Blue</button>
-    <button type="submit" id="re">Red</button>
-    <button type="submit" id="gr">Green</button>
     <button type="submit" onclick="cl()">Clear all</button>
-    <p id="t">By default color is set to black</p>
-    <p id="bu"></p>
     <script>
         var sx, sy, ex, ey;
         var con = 0;
         var sh = [];
-        var c = "black";
         const y = document.getElementById("myCanvas");
         var ctx = y.getContext("2d");
-        const bl = document.getElementById("bl");
-        const re = document.getElementById("re");
-        const gr = document.getElementById("gr");
-        bl.addEventListener("click", Blc);
-        re.addEventListener("click", Rec);
-        gr.addEventListener("click", Grc);
 
         function cl() {
             ctx.clearRect(0, 0, 600, 500);
-            document.getElementById("t").innerHTML =
-                "By default color is set to black";
-            c = "black";
             sh = [];
             con = 0;
-        }
-
-        function Blc() {
-            document.getElementById("t").innerHTML =
-                "Color is set to blue";
-            c = "blue";
-        }
-
-        function Rec() {
-            document.getElementById("t").innerHTML =
-                "Color is set to red";
-            c = "red";
-        }
-
-        function Grc() {
-            document.getElementById("t").innerHTML = "Color is set to green";
-            c = "green";
         }
         y.addEventListener('mousedown', (event) => {
             sx = event.clientX;
             sy = event.clientY;
         });
         y.addEventListener('mouseup', (event) => {
+            let n = (Math.random() * 0xfffff * 1000000).toString(16);
+            c = '#' + n.slice(0, 6);
             ctx.fillStyle = c;
             ex = event.clientX;
             ey = event.clientY;
@@ -75,7 +45,6 @@
             for (let i = 0; i < sh.length; i++)
                 if (sh[i][0] <= ax && sh[i][1] >= ax && sh[i][2] <= ay && sh[i][3] >= ay)
                     ctx.clearRect(sh[i][0], sh[i][2], sh[i][1], sh[i][3]);
-
         });
     </script>
 </body>

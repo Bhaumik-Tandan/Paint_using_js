@@ -12,7 +12,8 @@
     <button type="submit" onclick="cl()">Clear all</button>
     <script>
         var sx, sy, ex, ey;
-        var con = 0;
+        var con = 0,
+            f = -1;
         var sh = [];
         const y = document.getElementById("myCanvas");
         var ctx = y.getContext("2d");
@@ -25,15 +26,31 @@
         y.addEventListener('mousedown', (event) => {
             sx = event.clientX;
             sy = event.clientY;
+            for (let i = 0; i < sh.length; i++)
+                if (sh[i][0] <= sx && sh[i][1] >= sx && sh[i][2] <= sy && sh[i][3] >= sy) {
+                    f = sh[i];
+                    ctx.clearRect(sh[i][0], sh[i][2], sh[i][1], sh[i][3]);
+                    break;
+                }
         });
         y.addEventListener('mouseup', (event) => {
             let n = (Math.random() * 0xfffff * 1000000).toString(16);
             c = '#' + n.slice(0, 6);
-            ctx.fillStyle = c;
             ex = event.clientX;
             ey = event.clientY;
+            if (f != -1) {
+                dx = ex - sx;
+                dy = ey - ex;
+                sx = f[0] + dx;
+                sy = f[2] + dy;
+                ex = f[1] + dx;
+                ey = f[3] + dy;
+                c = f[4];
+                f = -1;
+            }
             if (ex == sx || ey == sy)
                 exit();
+            ctx.fillStyle = c;
             sh[con] = [sx, ex, sy, ey, c];
             con += 1;
             ctx.fillRect(sx, sy, ex - sx, ey - sy);

@@ -35,6 +35,7 @@
                 "By default color is set to black";
             c = "black";
             sh = [];
+            con = 0;
         }
 
         function Blc() {
@@ -50,8 +51,7 @@
         }
 
         function Grc() {
-            document.getElementById("t").innerHTML =
-                "Color is set to green";
+            document.getElementById("t").innerHTML = "Color is set to green";
             c = "green";
         }
         y.addEventListener('mousedown', (event) => {
@@ -64,7 +64,7 @@
             ey = event.clientY;
             if (ex == sx || ey == sy)
                 exit();
-            sh[con] = [sx, ex, sy, ey];
+            sh[con] = [sx, ex, sy, ey, c];
             con += 1;
             ctx.fillRect(sx, sy, ex - sx, ey - sy);
         });

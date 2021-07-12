@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Paint App</title>
+</head>
+
+<body>
+    <canvas id="myCanvas" width="600" height="500" style="border:1px solid #000000;">
+    </canvas>
+    <br>
+    <button type="submit" id="bl">Blue</button>
+    <button type="submit" id="re">Red</button>
+    <button type="submit" id="gr">Green</button>
+    <button type="submit" onclick="cl()">Clear all</button>
+    <p id="t">By default color is set to black</p>
+    <script>
+        var sx, sy, ex, ey;
+        var c = "black";
+        const y = document.getElementById("myCanvas");
+        var ctx = y.getContext("2d");
+        const bl = document.getElementById("bl");
+        const re = document.getElementById("re");
+        const gr = document.getElementById("gr");
+        bl.addEventListener("click", Blc);
+        re.addEventListener("click", Rec);
+        gr.addEventListener("click", Grc);
+
+        function cl() {
+            ctx.clearRect(0, 0, 600, 500);
+            document.getElementById("t").innerHTML =
+                "By default color is set to black";
+            c = "black";
+        }
+
+        function Blc() {
+            document.getElementById("t").innerHTML =
+                "Color is set to blue";
+            c = "blue";
+        }
+
+        function Rec() {
+            document.getElementById("t").innerHTML =
+                "Color is set to red";
+            c = "red";
+        }
+
+        function Grc() {
+            document.getElementById("t").innerHTML =
+                "Color is set to green";
+            c = "green";
+        }
+        document.addEventListener('mousedown', (event) => {
+            sx = event.clientX;
+            sy = event.clientY;
+        });
+        document.addEventListener('mouseup', (event) => {
+            ctx.fillStyle = c;
+            ex = event.clientX;
+            ey = event.clientY;
+            ctx.fillRect(sx, sy, ex - sx, ey - sy);
+        });
+    </script>
+</body>
+
+</html>

@@ -61,7 +61,7 @@
             console.log(ax, ay);
             for (let i = 0; i < sh.length; i++)
                 if (sh[i][0] <= ax && sh[i][1] >= ax && sh[i][2] <= ay && sh[i][3] >= ay)
-                    ctx.clearRect(sh[i][0], sh[i][2], sh[i][1], sh[i][3]);
+                    ctx.clearRect(sh[i][0], sh[i][2], sh[i][1] - sh[i][0], sh[i][3] - sh[i][2]);
         });
     </script>
 </body>
